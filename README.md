@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # RoalDate - Professional Social Media Platform
 
 A comprehensive social media platform that integrates features from modern social media, messenger, dating apps, and random video chat platforms.
@@ -336,3 +337,7 @@ For support and questions:
 ---
 
 **Built with ❤️ by the RoalDate Team**
+=======
+# roaldateV1
+Its my frist project
+>>>>>>> a6fa7ed7e04190f053b2afc43c28a72e1c1cf760
