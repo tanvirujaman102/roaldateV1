@@ -95,7 +95,11 @@ export const refreshToken = createAsyncThunk(
   async (_, { rejectWithValue, getState }) => {
     try {
       const state = getState() as { auth: AuthState }
-      const response = await authAPI.refreshToken(state.auth.refreshToken)
+      const refreshTokenValue = state.auth.refreshToken
+      if (!refreshTokenValue) {
+        return rejectWithValue('No refresh token available')
+      }
+      const response = await authAPI.refreshToken(refreshTokenValue)
       return response.data
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.error || 'Token refresh failed')
@@ -122,7 +126,7 @@ const authSlice = createSlice({
     clearError: (state) => {
       state.error = null
     },
-    setCredentials: (state, action: PayloadAction<{ user: User; token: string; refreshToken: string }>) => {
+    setCredentials: (state, action: PayloadAction<{ user: User; token?: string; refreshToken?: string; tokens?: { accessToken: string; refreshToken: string } }>) => {
       state.user = action.payload.user
       state.token = action.payload.tokens?.accessToken || action.payload.token || null
       state.refreshToken = action.payload.tokens?.refreshToken || action.payload.refreshToken || null

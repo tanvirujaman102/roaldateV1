@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '@/store/store'
+import { AppDispatch, RootState } from '@/store/store'
 import {
   HomeIcon,
   ChatBubbleLeftRightIcon,
@@ -17,7 +17,7 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
-import { logout } from '@/store/slices/authSlice'
+import { logoutUser, clearCredentials } from '@/store/slices/authSlice'
 import { motion } from 'framer-motion'
 
 interface NavItem {
@@ -29,7 +29,7 @@ interface NavItem {
 
 export default function Navigation() {
   const pathname = usePathname()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const { user } = useSelector((state: RootState) => state.auth)
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -44,7 +44,7 @@ export default function Navigation() {
   ]
 
   const handleLogout = () => {
-    dispatch(logout())
+    dispatch(logoutUser())
   }
 
   const isActive = (href: string) => pathname === href

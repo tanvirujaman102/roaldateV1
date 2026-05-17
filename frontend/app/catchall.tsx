@@ -1,5 +1,9 @@
-import { Redirect } from 'next/navigation'
+'use client'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function CatchAll() {
-  return <Redirect href="/" />
+  const router = useRouter()
+  useEffect(() => { router.push('/') }, [router])
+  return null
 }
